@@ -9,7 +9,7 @@ function App() {
   const minutesDom = useRef(null);
   const secundsDom = useRef(null);
 
-  const source = interval(100);
+  const source = interval(1000);
   let subscribeTimer;
   let timeMemory = 0;
 
@@ -20,25 +20,23 @@ function App() {
       let minutes = 0;
       let secunds = 0;
 
-      if (val % 10 === 0) {
-        timeSum += (val / 10) + time;
-        hours = Math.trunc(timeSum / 3600);
-        minutes = Math.trunc(timeSum / 60);
-        secunds = timeSum;
-        timeMemory = timeSum;
+      timeSum += val + time;
+      hours = Math.trunc(timeSum / 3600);
+      minutes = Math.trunc(timeSum / 60);
+      secunds = timeSum;
+      timeMemory = timeSum;
 
-        while (minutes >= 60) {
-          minutes -= 60;
-        }
-
-        while (secunds >= 60) {
-          secunds -= 60;
-        }
-
-        if (secundsDom) secundsDom.current.innerHTML = secunds < 10 ? `0${secunds}` : secunds;
-        if (minutesDom) minutesDom.current.innerHTML = minutes < 10 ? `0${minutes}:` : minutes + ":";
-        if (hoursDom) hoursDom.current.innerHTML = hours < 10 ? `0${hours}:` : hours + ":";
+      while (minutes >= 60) {
+        minutes -= 60;
       }
+
+      while (secunds >= 60) {
+        secunds -= 60;
+      }
+
+      if (secundsDom) secundsDom.current.innerHTML = secunds < 10 ? `0${secunds}` : secunds;
+      if (minutesDom) minutesDom.current.innerHTML = minutes < 10 ? `0${minutes}:` : minutes + ":";
+      if (hoursDom) hoursDom.current.innerHTML = hours < 10 ? `0${hours}:` : hours + ":";
     })
   }
 
